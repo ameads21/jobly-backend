@@ -25,6 +25,7 @@ const router = new express.Router();
  * Authorization required: admin
  */
 
+ //Create a company
 router.post("/", ensureAdmin, async function (req, res, next) {
   try {
     const validator = jsonschema.validate(req.body, companyNewSchema);
@@ -51,6 +52,7 @@ router.post("/", ensureAdmin, async function (req, res, next) {
  * Authorization required: none
  */
 
+ //Show all companies/search company
 router.get("/", async function (req, res, next) {
   const q = req.query;
   // arrive as strings from querystring, but we want as ints
@@ -79,6 +81,7 @@ router.get("/", async function (req, res, next) {
  * Authorization required: none
  */
 
+ //Show company with certain handle
 router.get("/:handle", async function (req, res, next) {
   try {
     const company = await Company.get(req.params.handle);
@@ -99,6 +102,7 @@ router.get("/:handle", async function (req, res, next) {
  * Authorization required: admin
  */
 
+ //Update a company
 router.patch("/:handle", ensureAdmin, async function (req, res, next) {
   try {
     const validator = jsonschema.validate(req.body, companyUpdateSchema);
@@ -119,6 +123,7 @@ router.patch("/:handle", ensureAdmin, async function (req, res, next) {
  * Authorization: admin
  */
 
+ //Delete a specified company
 router.delete("/:handle", ensureAdmin, async function (req, res, next) {
   try {
     await Company.remove(req.params.handle);
